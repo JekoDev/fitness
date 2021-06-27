@@ -3485,7 +3485,7 @@ MonoBehaviour:
   _layer:
     serializedVersion: 2
     m_Bits: 4
-  UseWebCam: 0
+  UseWebCam: 1
   WebCamIndex: 0
   VideoPlayer: {fileID: 769284634}
 --- !u!23 &1873549734
@@ -3565,7 +3565,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1875476000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3678,6 +3678,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EasyMotionRecorder
       objectReference: {fileID: 0}
+    - target: {fileID: 1076081908508874, guid: 26de42e5745b2b547b1714ecb3625597, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4734933881020700, guid: 26de42e5745b2b547b1714ecb3625597, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3726,13 +3730,12 @@ PrefabInstance:
         type: 3}
       propertyPath: RecordedMotionData
       value: 
-      objectReference: {fileID: 11400000, guid: 647a401f83ceeaa4d9e3fdb1246a0678,
-        type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 114014463455714378, guid: 26de42e5745b2b547b1714ecb3625597,
         type: 3}
       propertyPath: _animator
       value: 
-      objectReference: {fileID: 1009339739}
+      objectReference: {fileID: 0}
     - target: {fileID: 114494349119178576, guid: 26de42e5745b2b547b1714ecb3625597,
         type: 3}
       propertyPath: _animator
