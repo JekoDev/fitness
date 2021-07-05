@@ -1814,7 +1814,7 @@ Animation:
   m_GameObject: {fileID: 1296355399}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 0}
+  m_Animation: {fileID: 7400000, guid: 3555863ff4ef948e298b8d11ea795ec4, type: 2}
   m_Animations: []
   m_WrapMode: 0
   m_PlayAutomatically: 0
@@ -1832,7 +1832,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1579422e95122034087507d11caa28cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Counter: {fileID: 0}
+  Counter: {fileID: 2045636072}
+  TrainerExercise: {fileID: 7400000, guid: 26055e26f15260e4e8e0e51f50c41926, type: 3}
+  WaitAMinute: {fileID: 1198046880}
 --- !u!4 &1330607707 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8315583863143700780, guid: 376f47ea3b23a0c4390f513d69e1ca66,
