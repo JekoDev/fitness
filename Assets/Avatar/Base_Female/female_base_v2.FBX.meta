@@ -8,37 +8,37 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Eyes
-    second: {fileID: 2100000, guid: 33b842e5b3c809d4587b069f3e9d0599, type: 2}
+    second: {fileID: 2100000, guid: 4fc61eedf1bc40148a8e6b9e78200c19, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Face
-    second: {fileID: 2100000, guid: 91445d0ab0b55d14da038af254df4c18, type: 2}
+    second: {fileID: 2100000, guid: 6ae29320f066b4142a97dab723890fdf, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Hair
-    second: {fileID: 2100000, guid: 29d9258737b107b41ba59b1723ff4c2a, type: 2}
+    second: {fileID: 2100000, guid: 6a76ecb687e107c43af4cf099a1cd5de, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Pants
-    second: {fileID: 2100000, guid: ec1179d2fe3c13543be1e11a90c20a06, type: 2}
+    second: {fileID: 2100000, guid: 4eb4930c8b1b13141b10272206d5123b, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Shirt
-    second: {fileID: 2100000, guid: a900eab2fafd34445b59d61c2d7fa75b, type: 2}
+    second: {fileID: 2100000, guid: 06bf0cf309c91a34c9eb77ac6d1b4547, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Shoes
-    second: {fileID: 2100000, guid: 610c73858c85c0e448bd1f93d2a9a55c, type: 2}
+    second: {fileID: 2100000, guid: 109e3139f45051a4b95f637a5eb85df4, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Skin
-    second: {fileID: 2100000, guid: 3552523a295a13540b18d7d84fe2bf9c, type: 2}
+    second: {fileID: 2100000, guid: e12547405d6cefa4f80d109f4e49fe80, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -58,7 +58,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -103,7 +103,7 @@ ModelImporter:
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   referencedClips: []
-  importAnimation: 1
+  importAnimation: 0
   humanDescription:
     serializedVersion: 3
     human: []
@@ -118,13 +118,13 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
-  animationType: 2
+  animationType: 3
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
