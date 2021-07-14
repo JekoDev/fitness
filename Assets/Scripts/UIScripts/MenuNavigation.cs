@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class MenuNavigation : MonoBehaviour
@@ -8,6 +9,7 @@ public class MenuNavigation : MonoBehaviour
     public GameObject currentPanel;
     public GameObject lastPanel;
     public GameObject backButton;
+    public float animationSpeed = .35f;
 
     // Start is called before the first frame update
     void Start()
@@ -30,15 +32,13 @@ public class MenuNavigation : MonoBehaviour
     {
         lastPanel = currentPanel;
         PanelToShow.transform.position = new Vector3(Screen.width * 2, PanelToShow.transform.position.y, PanelToShow.transform.position.z);
-        //currentPanel.SetActive(false);
-        
 
-        LeanTween.moveX(currentPanel, currentPanel.transform.position.x - Screen.width, .35f);
+        LeanTween.moveX(currentPanel, currentPanel.transform.position.x - Screen.width, animationSpeed);
 
         PanelToShow.SetActive(true);
         currentPanel = PanelToShow;
 
-        LeanTween.moveX(PanelToShow, Screen.width / 2, .7f);
+        LeanTween.moveX(PanelToShow, Screen.width / 2, animationSpeed);
         ShowHideBackButton(true);
     }
 
@@ -47,23 +47,28 @@ public class MenuNavigation : MonoBehaviour
         if (show)
         {
             backButton.SetActive(true);
-            LeanTween.moveX(backButton, backButton.transform.position.x - (Screen.width * 0.1f), .7f);
+            LeanTween.moveX(backButton, backButton.transform.position.x - (Screen.width * 0.1f), animationSpeed);
         }
         else
-            LeanTween.moveX(backButton, backButton.transform.position.x + (Screen.width * 0.1f), .7f);
+            LeanTween.moveX(backButton, backButton.transform.position.x + (Screen.width * 0.1f), animationSpeed);
 
     }
 
     public void GoBack()
     {
-        LeanTween.moveX(currentPanel, currentPanel.transform.position.x - Screen.width, .35f);
+        LeanTween.moveX(currentPanel, currentPanel.transform.position.x - Screen.width, animationSpeed);
 
         lastPanel.SetActive(true);
         currentPanel = lastPanel;
 
-        LeanTween.moveX(lastPanel, Screen.width / 2, .7f);
+        LeanTween.moveX(lastPanel, Screen.width / 2, animationSpeed);
         ShowHideBackButton(false);
         lastPanel = null;
+    }
+
+    private void playMenusound()
+    {
+
     }
 
 
