@@ -1,25 +1,61 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class MenuNavigation : MonoBehaviour
 {
+    public GameObject registerPanel;
     public GameObject currentPanel;
     public GameObject lastPanel;
+    public GameObject playerPanel;
     public GameObject backButton;
     public float animationSpeed = .35f;
+    public PlayerManager playerManager;
+
+    public Slider MusicVolumeSlider;
+    public Slider SFXVolumeSlider;
+    public TMP_InputField usernameinput;
+    public TMP_Text TMP_Username;
+    public TMP_Text TMP_Level;
+
+    public Button buttonLanguageDE;
+    public Button buttonLanguageEN;
 
     // Start is called before the first frame update
     void Start()
     {
+        playerManager = new PlayerManager();
+
+        if (playerManager.PlayerExists())
+        {
+            playerManager.LoadPlayer();
+            InitGame();
+
+        }
+        else
+        {
+            playerPanel.SetActive(false);
+            registerPanel.SetActive(true);
+        }
+    }
+
+    private void InitGame()
+    {
+        TMP_Username.text = playerManager.Player.Username;
+        TMP_Level.text = "Level " + playerManager.Player.Level;
+        playerPanel.SetActive(true);
+
         for (int i = 0; i < currentPanel.transform.parent.gameObject.transform.childCount; i++)
         {
             currentPanel.transform.parent.gameObject.transform.GetChild(i).gameObject.SetActive(false);
         }
 
         currentPanel.SetActive(true);
+
+        InitSettings();
     }
 
     // Update is called once per frame
@@ -31,14 +67,19 @@ public class MenuNavigation : MonoBehaviour
     public void GotoMenu(GameObject PanelToShow)
     {
         lastPanel = currentPanel;
-        PanelToShow.transform.position = new Vector3(Screen.width * 2, PanelToShow.transform.position.y, PanelToShow.transform.position.z);
+
+        if(!PanelToShow.name.Equals("Credits"))
+            PanelToShow.transform.position = new Vector3(Screen.width * 2, PanelToShow.transform.position.y, PanelToShow.transform.position.z);
+
 
         LeanTween.moveX(currentPanel, currentPanel.transform.position.x - Screen.width, animationSpeed);
 
         PanelToShow.SetActive(true);
         currentPanel = PanelToShow;
 
-        LeanTween.moveX(PanelToShow, Screen.width / 2, animationSpeed);
+        if (!PanelToShow.name.Equals("Credits"))
+            LeanTween.moveX(PanelToShow, Screen.width / 2, animationSpeed);
+
         ShowHideBackButton(true);
     }
 
@@ -56,7 +97,13 @@ public class MenuNavigation : MonoBehaviour
 
     public void GoBack()
     {
-        LeanTween.moveX(currentPanel, currentPanel.transform.position.x - Screen.width, animationSpeed);
+        if (currentPanel.name.Equals("Settings"))
+            playerManager.SavePlayer();
+
+        if (!currentPanel.name.Equals("Credits"))
+            LeanTween.moveX(currentPanel, currentPanel.transform.position.x - Screen.width, animationSpeed);
+        else
+            currentPanel.transform.GetChild(0).GetComponent<ScaleInChildren>().Hide();
 
         lastPanel.SetActive(true);
         currentPanel = lastPanel;
@@ -64,11 +111,6 @@ public class MenuNavigation : MonoBehaviour
         LeanTween.moveX(lastPanel, Screen.width / 2, animationSpeed);
         ShowHideBackButton(false);
         lastPanel = null;
-    }
-
-    private void playMenusound()
-    {
-
     }
 
 
@@ -83,4 +125,73 @@ public class MenuNavigation : MonoBehaviour
          Application.Quit();
 #endif
     }
+
+    public void RegisterPlayer()
+    {
+        playerManager.CreatePlayer(usernameinput.text);
+
+        InitGame();
+
+        playerManager.SavePlayer();
+    }
+
+    #region settings
+
+    public void InitSettings()
+    {
+        MusicVolumeSlider.value = playerManager.Player.MusicVolume;
+        SFXVolumeSlider.value = playerManager.Player.SFXVolume;
+
+        InitLanguage();
+
+    }
+
+    private void InitLanguage()
+    {
+        switch (playerManager.Player.Langauge)
+        {
+            case 0:
+                buttonLanguageDE.GetComponent<Image>().sprite = Resources.Load<Sprite>("icon_language_DE_active");
+                buttonLanguageEN.GetComponent<Image>().sprite = Resources.Load<Sprite>("icon_language_EN_disabled");
+                break;
+            case 1:
+                buttonLanguageDE.GetComponent<Image>().sprite = Resources.Load<Sprite>("icon_language_DE_disabled");
+                buttonLanguageEN.GetComponent<Image>().sprite = Resources.Load<Sprite>("icon_language_EN_active");
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void MusicVolumeSliderValueChange()
+    {
+        playerManager.SetMusicVolume(MusicVolumeSlider.value);
+    }
+    
+    public void SFXVolumeSliderValueChange()
+    {
+        playerManager.SetSFXVolume(SFXVolumeSlider.value);
+
+    }
+
+    public void ButtonSetLanguage(int l)
+    {
+        switch (l)
+        {
+            case 0:
+                playerManager.SetLanguage(Language.deDE);
+                break;
+            case 1:
+                playerManager.SetLanguage(Language.enEN);
+                break;
+            default:
+                break;
+        }
+
+        InitLanguage();
+
+    }
+
+    #endregion
+
 }

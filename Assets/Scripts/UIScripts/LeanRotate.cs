@@ -8,20 +8,29 @@ public class LeanRotate : MonoBehaviour
     public int RotationAxis = 0;
     public float duration;
     public bool direction;
+    public bool loop = true;
 
     void Start()
     {
         switch(RotationAxis)
         {
             case 0:
-                LeanTween.rotateX(gameObject, 200.0f * (direction ? -1 : 1), duration).setEaseOutCubic().setLoopPingPong();
+                if(loop)
+                    LeanTween.rotateX(gameObject, 200.0f * (direction ? -1 : 1), duration).setEaseOutCubic().setLoopPingPong();
+                else
+                    LeanTween.rotateX(gameObject, 200.0f * (direction ? -1 : 1), duration).setEaseOutCubic();
                 break;
             case 1:
-                LeanTween.rotateY(gameObject, 200.0f * (direction ? -1 : 1), duration).setEaseOutCubic().setLoopPingPong();
-
+                if(loop)
+                    LeanTween.rotateY(gameObject, 200.0f * (direction ? -1 : 1), duration).setEaseOutCubic().setLoopPingPong();
+                else
+                    LeanTween.rotateY(gameObject, 200.0f * (direction ? -1 : 1), duration).setEaseOutCubic();
                 break;
             case 2:
-                LeanTween.rotateZ(gameObject, 200.0f * (direction ? -1 : 1), duration).setEaseOutCubic().setLoopPingPong();
+                if(loop)
+                    LeanTween.rotateZ(gameObject, 200.0f * (direction ? -1 : 1), duration).setEaseOutCubic().setLoopPingPong();
+                else
+                    LeanTween.rotateZ(gameObject, 200.0f * (direction ? -1 : 1), duration).setEaseOutCubic();
                 break;
                 
 
