@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class MenuNavigation : MonoBehaviour
 {
@@ -24,9 +25,13 @@ public class MenuNavigation : MonoBehaviour
     public Button buttonLanguageDE;
     public Button buttonLanguageEN;
 
+    public AudioMixer MasterAudioMixer;
+
+
     // Start is called before the first frame update
     void Start()
     {
+        DisableAllPanels();
         playerManager = new PlayerManager();
 
         if (playerManager.PlayerExists())
@@ -46,16 +51,20 @@ public class MenuNavigation : MonoBehaviour
     {
         TMP_Username.text = playerManager.Player.Username;
         TMP_Level.text = "Level " + playerManager.Player.Level;
-        playerPanel.SetActive(true);
 
-        for (int i = 0; i < currentPanel.transform.parent.gameObject.transform.childCount; i++)
-        {
-            currentPanel.transform.parent.gameObject.transform.GetChild(i).gameObject.SetActive(false);
-        }
+        playerPanel.SetActive(true);
 
         currentPanel.SetActive(true);
 
         InitSettings();
+    }
+
+    private void DisableAllPanels()
+    {
+        for (int i = 0; i < currentPanel.transform.parent.gameObject.transform.childCount; i++)
+        {
+            currentPanel.transform.parent.gameObject.transform.GetChild(i).gameObject.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -130,6 +139,7 @@ public class MenuNavigation : MonoBehaviour
     {
         playerManager.CreatePlayer(usernameinput.text);
 
+        registerPanel.SetActive(false);
         InitGame();
 
         playerManager.SavePlayer();
@@ -153,24 +163,30 @@ public class MenuNavigation : MonoBehaviour
             case 0:
                 buttonLanguageDE.GetComponent<Image>().sprite = Resources.Load<Sprite>("icon_language_DE_active");
                 buttonLanguageEN.GetComponent<Image>().sprite = Resources.Load<Sprite>("icon_language_EN_disabled");
+                GetComponent<LocalizationHandler>().SetDE();
                 break;
             case 1:
                 buttonLanguageDE.GetComponent<Image>().sprite = Resources.Load<Sprite>("icon_language_DE_disabled");
                 buttonLanguageEN.GetComponent<Image>().sprite = Resources.Load<Sprite>("icon_language_EN_active");
+                GetComponent<LocalizationHandler>().SetEN();
                 break;
             default:
                 break;
         }
+
+
     }
 
     public void MusicVolumeSliderValueChange()
     {
         playerManager.SetMusicVolume(MusicVolumeSlider.value);
+        MasterAudioMixer.SetFloat("MusicVol", playerManager.Player.MusicVolume);
     }
     
     public void SFXVolumeSliderValueChange()
     {
         playerManager.SetSFXVolume(SFXVolumeSlider.value);
+        MasterAudioMixer.SetFloat("SFXVol", playerManager.Player.SFXVolume);
 
     }
 
