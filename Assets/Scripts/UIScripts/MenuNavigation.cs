@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 
 public class MenuNavigation : MonoBehaviour
 {
@@ -208,6 +209,13 @@ public class MenuNavigation : MonoBehaviour
 
     }
 
+
+
+    public void GotoScene(int s)
+    {
+        Debug.Log("GoTo Scene");
+        SceneManager.LoadScene("PlayScene");
+    }
     #endregion
 
 }
