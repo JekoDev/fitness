@@ -12,6 +12,7 @@ public class IngameUIManager : MonoBehaviour
     public GameObject buttonPauseMenu;
     public GameObject finishScreen;
     public GameObject pauseBackground;
+    public GameObject calibrating;
 
     private int _points;
     // Start is called before the first frame update

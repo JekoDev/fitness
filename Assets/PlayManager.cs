@@ -9,11 +9,14 @@ public class PlayManager : MonoBehaviour
 {
     public string routineName;
     public GameObject TrainerObject;
+    public GameObject PlayerObject;
 
     private Routine _routineData;
     private int currentnode = -1;
     private IngameUIManager uiManager;
     private bool end = false;
+    private bool start = true;
+     
 
     protected Animator animator;
     protected AnimatorOverrideController animatorOverrideController;
@@ -81,21 +84,28 @@ public class PlayManager : MonoBehaviour
 
         clipOverrides = new AnimationClipOverrides(animatorOverrideController.overridesCount);
         animatorOverrideController.GetOverrides(clipOverrides);
-
-
-        PlayNextNode(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             if (!end)
+            {
+                if (start)
+                {
+                    PlayerObject.SetActive(true);
+                    uiManager.calibrating.SetActive(false);
+                    start = false;
+                }
                 PlayNextNode(true);
+            }
             else
                 SceneManager.LoadScene("Demo");
-        }
+
+        }           
+
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -124,37 +134,37 @@ public class PlayManager : MonoBehaviour
         switch (v)
         {
             case 0:
-                currentAudioClipTrainer = (AudioClip)Resources.Load("TrainerVoicelines/de/de_confirm_1");
+                currentAudioClipTrainer = (AudioClip)Resources.Load("TrainerVoicelines/en/en_confirm_1");
                 currentAudioClipUI = (AudioClip)Resources.Load("UIAudio/check_hit");
                 break;
             case 1:
-                currentAudioClipTrainer = (AudioClip)Resources.Load("TrainerVoicelines/de/de_confirm_2");
+                currentAudioClipTrainer = (AudioClip)Resources.Load("TrainerVoicelines/en/en_confirm_2");
                 currentAudioClipUI = (AudioClip)Resources.Load("UIAudio/check_hit");
                 break;
             case 2:
-                currentAudioClipTrainer = (AudioClip)Resources.Load("TrainerVoicelines/de/de_confirm_3");
+                currentAudioClipTrainer = (AudioClip)Resources.Load("TrainerVoicelines/en/en_confirm_3");
                 currentAudioClipUI = (AudioClip)Resources.Load("UIAudio/check_hit");
                 break;
             case 3:
-                currentAudioClipTrainer = (AudioClip)Resources.Load("TrainerVoicelines/de/de_confirm_4");
+                currentAudioClipTrainer = (AudioClip)Resources.Load("TrainerVoicelines/en/en_confirm_4");
                 currentAudioClipUI = (AudioClip)Resources.Load("UIAudio/check_hit");
                 break;
             case 4:
-                currentAudioClipTrainer = (AudioClip)Resources.Load("TrainerVoicelines/de/de_confirm_5");
+                currentAudioClipTrainer = (AudioClip)Resources.Load("TrainerVoicelines/en/en_confirm_5");
                 currentAudioClipUI = (AudioClip)Resources.Load("UIAudio/check_hit");
                 break;
             case 5:
-                currentAudioClipTrainer = (AudioClip)Resources.Load("TrainerVoicelines/de/de_confirm_6");
+                currentAudioClipTrainer = (AudioClip)Resources.Load("TrainerVoicelines/en/en_confirm_6");
                 currentAudioClipUI = (AudioClip)Resources.Load("UIAudio/check_hit");
                 break;
             case 6:
-                currentAudioClipTrainer = (AudioClip)Resources.Load("TrainerVoicelines/de/de_mistake_1");
+                currentAudioClipTrainer = (AudioClip)Resources.Load("TrainerVoicelines/en/en_mistake_1");
                 break;
             case 7:
-                currentAudioClipTrainer = (AudioClip)Resources.Load("TrainerVoicelines/de/de_mistake_2");
+                currentAudioClipTrainer = (AudioClip)Resources.Load("TrainerVoicelines/en/en_mistake_2");
                 break;
             case 8:
-                currentAudioClipTrainer = (AudioClip)Resources.Load("TrainerVoicelines/de/dde_mistake_3");
+                currentAudioClipTrainer = (AudioClip)Resources.Load("TrainerVoicelines/en/en_mistake_3");
                 break;
             default:
                 break;
@@ -171,7 +181,7 @@ public class PlayManager : MonoBehaviour
     {
         currentnode++;
 
-        if (currentnode > _routineData.nodes.Count)
+        if (currentnode >= _routineData.nodes.Count)
         {
             FinishRoutine();
             end = true;
@@ -185,7 +195,7 @@ public class PlayManager : MonoBehaviour
     private void FinishRoutine()
     {
         var audiosource = TrainerObject.GetComponent<AudioSource>();
-        var currentAudioClip = (AudioClip)Resources.Load(_routineData.exerciseEnd.resAudioNodeDe);
+        var currentAudioClip = (AudioClip)Resources.Load(_routineData.exerciseEnd.resAudioNodeEn);
         audiosource.PlayOneShot(currentAudioClip);
 
         uiManager.ShowEndscreen();
@@ -215,7 +225,7 @@ public class PlayManager : MonoBehaviour
     void ChangeAudio()
     {
         var audiosource = TrainerObject.GetComponent<AudioSource>();
-        var currentAudioClip = (AudioClip)Resources.Load(_routineData.nodes[currentnode].resAudioNodeDe);
+        var currentAudioClip = (AudioClip)Resources.Load(_routineData.nodes[currentnode].resAudioNodeEn);
         audiosource.PlayOneShot(currentAudioClip);
     }
 }
